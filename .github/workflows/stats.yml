@@ -2,11 +2,14 @@ name: Generate GitHub Stats
 
 on:
   schedule:
-    # Runs at 00:00 UTC every day
     - cron: '0 0 * * *'
-  workflow_dispatch: # Allows you to run it manually anytime
+  workflow_dispatch:
   push:
     branches: [ main, master ]
+
+# 🛑 THIS SECTION IS THE FIX: Explicitly grant write access to the repo contents
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -24,7 +27,6 @@ jobs:
           base: header, activity, community, repositories
           config_timezone: UTC
           
-          # Output layout configuration
           filename: github-metrics.svg
           output_action: commit
           committer_branch: main
